@@ -1,10 +1,253 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
 <body>
 
-<h1>My First Heading</h1>
+    <style>
+        .map-overlay-container {
+            position: absolute;
+            width: 25%;
+            top: 0;
+            left: 0;
+            padding: 10px;
+            z-index: 1;
+        }
 
-<p>My first paragraph.</p>
+        .map-overlay {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: #fff;
+            border-radius: 3px;
+            padding: 10px;
+            box-shadow:0 1px 2px rgba(0,0,0,0.20);
+        }
+
+        .map-overlay h2,
+        .map-overlay p {
+            margin: 0 0 10px;
+        }
+
+        .map-navigation-conatainer {
+            position: absolute;
+            width: 18%;
+            height: 65%;
+            bottom: 2%;
+            right: 0;
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .map-navigation {
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color: #fff;
+            border-radius: 3px;
+            padding: 10px;
+            box-shadow:0 1px 2px rgba(0,0,0,0.20);
+        }
+
+        .map-navigation h2,
+        .map-navigation p {
+            margin: 0 0 10px;
+        }
+    </style>
+
+<div id='map'></div>
+
+<div class='map-overlay-container'>
+  <div class='map-overlay'>
+    <h2 id='location-title'></h2>
+    <p id='location-description'></p>
+    <small>Text credit: <a target='_blank' href='http://www.nycgo.com/neighborhoods'>nycgo.com</a></small>
+  </div>
+</div>
+
+<div class='map-navigation-conatainer'>
+  <div class='map-navigation'>
+    <h2 id='location-title'>Viajero</h2>
+    <p id='location-description'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+  </div>
+</div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGxhYmxvMDkiLCJhIjoiLVdaOHJ5cyJ9.J3n95xgPc2yjnm6QyLuMYQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/plablo09/cil8o3wsr001g9gkkc20xc1ha', //stylesheet location
+    center: [-100.35, 22.9], // starting position
+    zoom: 4 // starting zoom
+});
+
+var title = document.getElementById('location-title');
+var description = document.getElementById('location-description');
+
+var locations = [{
+    "id": "1",
+    "title": "Tijuana",
+    "description": "Ciudad fronteriza...",
+    "camera": {
+        center: [-116.92, 32.46],
+        zoom: 10.8,
+        pitch: 50
+    }
+}, {
+    "id": "2",
+    "title": "Hermosillo",
+    "description": "Capital del estado de Sonora...",
+    "camera": {
+        center: [-110.98, 29.10],
+        bearing: -8.9,
+        zoom: 11.0,
+        pitch: 30
+    }
+}, {
+    "id": "3",
+    "title": "Monterrey",
+    "description": "Capital del Estado de Nuevo León...",
+    "camera": {
+        center: [-100.24, 25.68],
+        bearing: -  14.2,
+        zoom: 10.0,
+        pitch: 26
+    }
+}, {
+    "id": "4",
+    "title": "Torreón",
+    "description": "Zona metropolitana en la frontera entre los estados de Coahuila y Durango...",
+    "camera": {
+        center: [-103.44, 25.55],
+        bearing:  14.2,
+        zoom: 11.1,
+        pitch: 50
+    }
+}, {
+    "id": "5",
+    "title": "Aguascalientes",
+    "description": "Capital del Estado de Aguascalientes...",
+    "camera": {
+        center: [-102.29, 21.88],
+        bearing:  - 14.2,
+        zoom: 11.1,
+        pitch: 50
+    }
+}, {
+    "id": "6",
+    "title": "San Luis Potosí",
+    "description": "Capital del Estado del mismo nombre...",
+    "camera": {
+        center: [-100.95, 22.15],
+        bearing:  - 19.2,
+        zoom: 11.8,
+        pitch: 37
+    }
+}, {
+    "id": "7",
+    "title": "Guadalajara",
+    "description": "Capital del Estado de Jalisco...",
+    "camera": {
+        center: [-103.36, 20.66],
+        bearing:  75.2,
+        zoom: 10.4,
+        pitch: 50
+    }
+}, {
+    "id": "8",
+    "title": "León",
+    "description": "Capital del Estado de Guanajuato...",
+    "camera": {
+        center: [-101.68, 21.12],
+        bearing:  - 15.2,
+        zoom: 12.0,
+        pitch: 35
+    }
+}, {
+    "id": "9",
+    "title": "Querétaro",
+    "description": "Capital del Estado de Querétaro...",
+    "camera": {
+        center: [-100.40, 20.59],
+        bearing:  - 120,
+        zoom: 11.6,
+        pitch: 20
+    }
+}, {
+    "id": "10",
+    "title": "Ciudad de México",
+    "description": "Capital del País...",
+    "camera": {
+        center: [-99.13, 19.42],
+        bearing:  - 45,
+        zoom: 11.6,
+        pitch: 12
+    }
+}, {
+    "title": "República Mexicana",
+    "description": "Un viaje por las principales ciudades del pais para examinar las diferencias en el bienestar subjetivo obtenidas del análisis de sentimiento basado en los Tweets geolocalizados.",
+    "camera": {
+        center: [-100.35, 22.9],
+        zoom: 4,
+        bearing: 0,
+        pitch: 0
+    }
+}];
+
+function playback(index) {
+    title.textContent = locations[index].title;
+    description.textContent = locations[index].description;
+
+    //highlightBorough(locations[index].id ? locations[index].id : '');
+
+    // Animate the map position based on camera properties
+    map.flyTo(locations[index].camera);
+
+    map.once('moveend', function() {
+        // Duration the slide is on screen after interaction
+        window.setTimeout(function() {
+            // Increment index
+            index = (index + 1 === locations.length) ? 0 : index + 1;
+            playback(index);
+        }, 3000); // After callback, show the location for 3 seconds.
+    });
+}
+
+// Display the last title/description first
+title.textContent = locations[locations.length - 1].title;
+description.textContent = locations[locations.length - 1].description;
+
+map.on('load', function() {
+
+    // Polygon fill for each borough of new york city.
+    // Used to highlight when its borough is active.
+    // map.addSource("boroughs", {
+    //     "type": "vector",
+    //     "url": "mapbox://mapbox.8ibmsn6u"
+    // });
+
+    // map.addLayer({
+    //     "id": "highlight",
+    //     "type": "fill",
+    //     "source": "boroughs",
+    //     "source-layer": "original",
+    //     "paint": {
+    //         "fill-color": "#fd6b50",
+    //         "fill-opacity": 0.25
+    //     },
+    //     "filter": ["==", "borocode", ""]
+    // }, 'neighborhood_small_label'); // Place polygon under the neighborhood labels.
+
+    // Start the playback animation for each borough
+    playback(0);
+});
+
+</script>
 
 </body>
 </html>
