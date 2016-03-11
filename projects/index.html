@@ -65,7 +65,8 @@
 
         .map-navigation {
             font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            background-color: #fff;
+            background-color: #d9d9d9;
+            opacity:0.75;
             border-radius: 3px;
             padding: 10px;
             box-shadow:0 1px 2px rgba(0,0,0,0.20);
@@ -75,13 +76,68 @@
         .map-navigation p {
             margin: 0 0 10px;
         }
+
+        .map-overlay-container{
+            position: absolute;
+            width: 10%;
+            bottom: 5%;
+            left: 2%;
+            padding: 10px;
+            z-index: 1;
+        }
+        .map-overlay{
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            background-color:rgba(0,0,0,0);
+            border:0
+        }
+        .circle-pos{
+            display:block;
+            width:50px;
+            height:50px;
+            border-radius:50px;
+            font-size:10px;
+            color:#fff;
+            line-height:50px;
+            text-align:center;
+            text-decoration:none;
+            background:hsl(66, 48%, 43%);
+            opacity:0.75
+        }
+        .circle-neg{
+            display:block;
+            width:50px;
+            height:50px;
+            border-radius:50px;
+            font-size:10px;
+            color:#fff;
+            line-height:50px;
+            text-align:center;
+            text-decoration:none;
+            background:hsl(359, 82%, 43%);
+            opacity:0.75
+        }
+        .circle-neu{
+            display:block;
+            width:50px;
+            height:50px;
+            border-radius:50px;
+            font-size:10px;
+            color:#fff;
+            line-height:50px;
+            text-align:center;
+            text-decoration:none;
+            background:hsl(192, 64%, 39%);
+            opacity:0.75
+        }
     </style>
 
 <div id='map'></div>
 
 <div class='map-overlay-container'>
   <div class='map-overlay'>
-    <h2 id='location-title'></h2>
+    <p class="circle-pos">Positivo</p>
+    <p class="circle-neu">Neutro</p>
+    <p class="circle-neg">Negativo</p>
   </div>
 </div>
 
@@ -89,28 +145,50 @@
   <div class='map-navigation'>
     <h1 id='title'>Viajero</h1>
     <form action="">
-        <input type="radio" name="place" value="repmex" id="repmex">
-        <label for="repmex"><span></span>República Mexicana</label><br>
-        <input type="radio" name="place" value="Tijuana" id="Tijuana">
-        <label for="Tijuana"><span></span>Tijuana</label><br>
-        <input type="radio" name="place" value="Hermosillo" id="Hermosillo">
-        <label for="Hermosillo"><span></span>Hermosillo</label><br>
-        <input type="radio" name="place" value="Monterrey" id="Monterrey">
-        <label for="Monterrey"><span></span>Monterrey</label><br>
-        <input type="radio" name="place" value="Torreon" id="Torreon">
-        <label for="Torreon"><span></span>Torreón</label><br>
-        <input type="radio" name="place" value="Aguascalientes" id="Aguascalientes">
-        <label for="Aguascalientes"><span></span>Aguascalientes</label><br>
-        <input type="radio" name="place" value="SLP" id="SLP">
-        <label for="SLP"><span></span>San Luis Potosí</label><br>
-        <input type="radio" name="place" value="Guadalajara" id="Guadalajara">
-        <label for="Guadalajara"><span></span>Guadalajara</label><br>
-        <input type="radio" name="place" value="Leon" id="Leon">
-        <label for="Leon"><span></span>León</label><br>
-        <input type="radio" name="place" value="Queretaro" id="Queretaro">
-        <label for="Queretaro"><span></span>Querétaro</label><br>
-        <input type="radio" name="place" value="CDMX" id="CDMX">
-        <label for="CDMX"><span></span>Ciudad de México</label><br>
+        <div>
+            <input type="radio" name="place" value="repmex" id="repmex">
+            <label for="repmex"><span></span>República Mexicana</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Tijuana" id="Tijuana">
+            <label for="Tijuana"><span></span>Tijuana</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Hermosillo" id="Hermosillo">
+            <label for="Hermosillo"><span></span>Hermosillo</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Monterrey" id="Monterrey">
+            <label for="Monterrey"><span></span>Monterrey</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Torreon" id="Torreon">
+            <label for="Torreon"><span></span>Torreón</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Aguascalientes" id="Aguascalientes">
+            <label for="Aguascalientes"><span></span>Aguascalientes</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="SLP" id="SLP">
+            <label for="SLP"><span></span>San Luis Potosí</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Guadalajara" id="Guadalajara">
+            <label for="Guadalajara"><span></span>Guadalajara</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Leon" id="Leon">
+            <label for="Leon"><span></span>León</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Queretaro" id="Queretaro">
+            <label for="Queretaro"><span></span>Querétaro</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="CDMX" id="CDMX">
+            <label for="CDMX"><span></span>Ciudad de México</label>
+        </div>
     </form>
   </div>
 </div>
