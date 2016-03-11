@@ -5,6 +5,7 @@
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+    <script src='assets/jquery-2.2.1.min.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
     <style>
         body { margin:0; padding:0; }
@@ -14,28 +15,44 @@
 <body>
 
     <style>
-        .map-overlay-container {
-            position: absolute;
-            width: 25%;
-            top: 0;
-            left: 0;
-            padding: 10px;
-            z-index: 1;
+        div {
+          margin:0 0 0.75em 0;
         }
 
-        .map-overlay {
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            background-color: #fff;
-            border-radius: 3px;
-            padding: 10px;
-            box-shadow:0 1px 2px rgba(0,0,0,0.20);
+        input[type="radio"] {
+            display:none;
+        }
+        input[type="radio"] + label {
+            color: #292321;
+            font-family:Arial, sans-serif;
+            font-size:14px;
+        }
+        input[type="radio"] + label span {
+            display:inline-block;
+            width:19px;
+            height:19px;
+            margin:-1px 4px 0 0;
+            vertical-align:middle;
+            cursor:pointer;
+            -moz-border-radius:  50%;
+            border-radius:  50%;
         }
 
-        .map-overlay h2,
-        .map-overlay p {
-            margin: 0 0 10px;
+        input[type="radio"] + label span {
+             background-color:#292321;
         }
 
+        input[type="radio"]:checked + label span{
+             background-color:#CC3300;
+        }
+
+        input[type="radio"] + label span,
+        input[type="radio"]:checked + label span {
+          -webkit-transition:background-color 0.4s linear;
+          -o-transition:background-color 0.4s linear;
+          -moz-transition:background-color 0.4s linear;
+          transition:background-color 0.4s linear;
+        }
         .map-navigation-conatainer {
             position: absolute;
             width: 18%;
@@ -65,15 +82,36 @@
 <div class='map-overlay-container'>
   <div class='map-overlay'>
     <h2 id='location-title'></h2>
-    <p id='location-description'></p>
-    <small>Text credit: <a target='_blank' href='http://www.nycgo.com/neighborhoods'>nycgo.com</a></small>
   </div>
 </div>
 
 <div class='map-navigation-conatainer'>
   <div class='map-navigation'>
-    <h2 id='location-title'>Viajero</h2>
-    <p id='location-description'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    <h1 id='title'>Viajero</h1>
+    <form action="">
+        <input type="radio" name="place" value="repmex" id="repmex">
+        <label for="repmex"><span></span>República Mexicana</label><br>
+        <input type="radio" name="place" value="Tijuana" id="Tijuana">
+        <label for="Tijuana"><span></span>Tijuana</label><br>
+        <input type="radio" name="place" value="Hermosillo" id="Hermosillo">
+        <label for="Hermosillo"><span></span>Hermosillo</label><br>
+        <input type="radio" name="place" value="Monterrey" id="Monterrey">
+        <label for="Monterrey"><span></span>Monterrey</label><br>
+        <input type="radio" name="place" value="Torreon" id="Torreon">
+        <label for="Torreon"><span></span>Torreón</label><br>
+        <input type="radio" name="place" value="Aguascalientes" id="Aguascalientes">
+        <label for="Aguascalientes"><span></span>Aguascalientes</label><br>
+        <input type="radio" name="place" value="SLP" id="SLP">
+        <label for="SLP"><span></span>San Luis Potosí</label><br>
+        <input type="radio" name="place" value="Guadalajara" id="Guadalajara">
+        <label for="Guadalajara"><span></span>Guadalajara</label><br>
+        <input type="radio" name="place" value="Leon" id="Leon">
+        <label for="Leon"><span></span>León</label><br>
+        <input type="radio" name="place" value="Queretaro" id="Queretaro">
+        <label for="Queretaro"><span></span>Querétaro</label><br>
+        <input type="radio" name="place" value="CDMX" id="CDMX">
+        <label for="CDMX"><span></span>Ciudad de México</label><br>
+    </form>
   </div>
 </div>
 
@@ -91,8 +129,8 @@ var description = document.getElementById('location-description');
 
 var locations = [{
     "id": "1",
+    "radioId": "Tijuana",
     "title": "Tijuana",
-    "description": "Ciudad fronteriza...",
     "camera": {
         center: [-116.92, 32.46],
         zoom: 10.8,
@@ -100,8 +138,8 @@ var locations = [{
     }
 }, {
     "id": "2",
+    "radioId": "Hermosillo",
     "title": "Hermosillo",
-    "description": "Capital del estado de Sonora...",
     "camera": {
         center: [-110.98, 29.10],
         bearing: -8.9,
@@ -110,8 +148,8 @@ var locations = [{
     }
 }, {
     "id": "3",
+    "radioId": "Monterrey",
     "title": "Monterrey",
-    "description": "Capital del Estado de Nuevo León...",
     "camera": {
         center: [-100.24, 25.68],
         bearing: -  14.2,
@@ -120,8 +158,8 @@ var locations = [{
     }
 }, {
     "id": "4",
+    "radioId": "Torreon",
     "title": "Torreón",
-    "description": "Zona metropolitana en la frontera entre los estados de Coahuila y Durango...",
     "camera": {
         center: [-103.44, 25.55],
         bearing:  14.2,
@@ -130,8 +168,8 @@ var locations = [{
     }
 }, {
     "id": "5",
+    "radioId": "Aguascalientes",
     "title": "Aguascalientes",
-    "description": "Capital del Estado de Aguascalientes...",
     "camera": {
         center: [-102.29, 21.88],
         bearing:  - 14.2,
@@ -140,8 +178,8 @@ var locations = [{
     }
 }, {
     "id": "6",
+    "radioId": "SLP",
     "title": "San Luis Potosí",
-    "description": "Capital del Estado del mismo nombre...",
     "camera": {
         center: [-100.95, 22.15],
         bearing:  - 19.2,
@@ -150,8 +188,8 @@ var locations = [{
     }
 }, {
     "id": "7",
+    "radioId": "Guadalajara",
     "title": "Guadalajara",
-    "description": "Capital del Estado de Jalisco...",
     "camera": {
         center: [-103.36, 20.66],
         bearing:  75.2,
@@ -160,8 +198,8 @@ var locations = [{
     }
 }, {
     "id": "8",
+    "radioId": "Leon",
     "title": "León",
-    "description": "Capital del Estado de Guanajuato...",
     "camera": {
         center: [-101.68, 21.12],
         bearing:  - 15.2,
@@ -170,8 +208,8 @@ var locations = [{
     }
 }, {
     "id": "9",
+    "radioId": "Queretaro",
     "title": "Querétaro",
-    "description": "Capital del Estado de Querétaro...",
     "camera": {
         center: [-100.40, 20.59],
         bearing:  - 120,
@@ -180,8 +218,8 @@ var locations = [{
     }
 }, {
     "id": "10",
+    "radioId": "CDMX",
     "title": "Ciudad de México",
-    "description": "Capital del País...",
     "camera": {
         center: [-99.13, 19.42],
         bearing:  - 45,
@@ -190,7 +228,7 @@ var locations = [{
     }
 }, {
     "title": "República Mexicana",
-    "description": "Un viaje por las principales ciudades del pais para examinar las diferencias en el bienestar subjetivo obtenidas del análisis de sentimiento basado en los Tweets geolocalizados.",
+    "radioId": "repmex",
     "camera": {
         center: [-100.35, 22.9],
         zoom: 4,
@@ -200,52 +238,40 @@ var locations = [{
 }];
 
 function playback(index) {
-    title.textContent = locations[index].title;
-    description.textContent = locations[index].description;
-
-    //highlightBorough(locations[index].id ? locations[index].id : '');
-
+    $(":radio[value="+locations[index].radioId+"]").prop('checked',true)
     // Animate the map position based on camera properties
     map.flyTo(locations[index].camera);
-
     map.once('moveend', function() {
         // Duration the slide is on screen after interaction
         window.setTimeout(function() {
             // Increment index
             index = (index + 1 === locations.length) ? 0 : index + 1;
-            playback(index);
+            if(index != "10"){
+                playback(index);
+            }else {
+                map.flyTo(locations[10].camera);
+                $(":radio[value=repmex]").prop('checked',true)
+                $('input[name=place]').attr("disabled",false);
+            }
         }, 3000); // After callback, show the location for 3 seconds.
     });
 }
 
-// Display the last title/description first
-title.textContent = locations[locations.length - 1].title;
-description.textContent = locations[locations.length - 1].description;
-
+$(":radio[value=repmex]").prop('checked',true)
 map.on('load', function() {
-
-    // Polygon fill for each borough of new york city.
-    // Used to highlight when its borough is active.
-    // map.addSource("boroughs", {
-    //     "type": "vector",
-    //     "url": "mapbox://mapbox.8ibmsn6u"
-    // });
-
-    // map.addLayer({
-    //     "id": "highlight",
-    //     "type": "fill",
-    //     "source": "boroughs",
-    //     "source-layer": "original",
-    //     "paint": {
-    //         "fill-color": "#fd6b50",
-    //         "fill-opacity": 0.25
-    //     },
-    //     "filter": ["==", "borocode", ""]
-    // }, 'neighborhood_small_label'); // Place polygon under the neighborhood labels.
-
-    // Start the playback animation for each borough
+    $('input[name=place]').attr("disabled",true);
     playback(0);
+    $("input[name='place']").change(flyToLocation);
 });
+
+function flyToLocation(){
+    radioValue = $(this).val();
+    locations.forEach(function(item,index){
+        if(item["radioId"] == radioValue){
+            map.flyTo(locations[index].camera);
+        }
+    });
+}
 
 </script>
 
