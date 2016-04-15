@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+    <script src='assets/jquery-2.2.1.min.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='assets/styles.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<div class='map-overlay-container'>
+  <div class='map-overlay'>
+    <p class="circle-pos">Positivo</p>
+    <p class="circle-neu">Neutro</p>
+    <p class="circle-neg">Negativo</p>
+  </div>
+</div>
+
+<div class='map-navigation-conatainer'>
+  <div class='map-navigation'>
+    <h1 id='title'>Viajero</h1>
+    <form action="">
+        <div>
+            <input type="radio" name="place" value="general" id="general">
+            <label for="general"><span></span>Zona Metropolitana</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Loc1" id="Loc1">
+            <label for="Loc1"><span></span>Aeropuerto</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Loc2" id="Loc2">
+            <label for="Loc2"><span></span>Centro Histórico</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Loc3" id="Loc3">
+            <label for="Loc3"><span></span>Chapultepec-Polanco|</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Loc4" id="Loc4">
+            <label for="Loc4"><span></span>Colonia</label>
+        </div>
+    </form>
+  </div>
+</div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoicGxhYmxvMDkiLCJhIjoiLVdaOHJ5cyJ9.J3n95xgPc2yjnm6QyLuMYQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/plablo09/cil8o3wsr001g9gkkc20xc1ha', //stylesheet location
+    center: [-99.14, 19.46], // starting position
+    zoom: 10.0 // starting zoom
+});
+
+var title = document.getElementById('location-title');
+var description = document.getElementById('location-description');
+
+var locations = [{
+    "id": "1",
+    "radioId": "Loc1",
+    "title": "Aeropuerto",
+    "camera": {
+        center: [-99.08, 19.43],
+        zoom: 13.2
+    }
+}, {
+    "id": "2",
+    "radioId": "Loc2",
+    "title": "Centro Histórico",
+    "camera": {
+        center: [-99.14, 19.43],
+        zoom: 15.31
+      }
+  }, {
+    "id": "3",
+    "radioId": "Loc3",
+    "title": "Chapultepec-Polanco",
+    "camera": {
+        center: [-99.20, 19.43],
+        zoom: 15.1
+    }
+}, {
+    "id": "4",
+    "radioId": "Loc4",
+    "title": "Colonia Condesa",
+    "camera": {
+        center: [-99.17, 19.41],
+        zoom: 15.1
+    }
+}, {
+    "title": "Zona Metropolitana",
+    "radioId": "general",
+    "camera": {
+        center: [-99.14, 19.46],
+        zoom: 10.0
+    }
+}];
+
+function playback(index) {
+    $(":radio[value="+locations[index].radioId+"]").prop('checked',true)
+    // Animate the map position based on camera properties
+    map.flyTo(locations[index].camera);
+    map.once('moveend', function() {
+        // Duration the slide is on screen after interaction
+        window.setTimeout(function() {
+            // Increment index
+            index = (index + 1 === locations.length) ? 0 : index + 1;
+            if(index != "4"){
+                playback(index);
+            }else {
+                map.flyTo(locations[locations.length - 1].camera);
+                $(":radio[value=general]").prop('checked',true)
+                $('input[name=place]').attr("disabled",false);
+            }
+        }, 3000); // After callback, show the location for 3 seconds.
+    });
+}
+
+$(":radio[value=repmex]").prop('checked',true)
+map.on('load', function() {
+    $('input[name=place]').attr("disabled",true);
+    playback(0);
+    $("input[name='place']").change(flyToLocation);
+});
+function flyToLocation(){
+    radioValue = $(this).val();
+    locations.forEach(function(item,index){
+        if(item["radioId"] == radioValue){
+            map.flyTo(locations[index].camera);
+        }
+    });
+}
+
+</script>
+
+</body>
+</html>
