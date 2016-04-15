@@ -55,6 +55,17 @@ body {
   font-size: 21px;
 }
 
+.jumbotron-no-back {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #DADFE0;
+  color: black;
+}
+.jumbotron-no-back .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+
 /* Supporting marketing content */
 .marketing {
   margin: 40px 0;
