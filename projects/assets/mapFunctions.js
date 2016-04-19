@@ -61,7 +61,7 @@ function Count(type){
 }
 
 function RefreshGraph(){
-
+      //console.log(PosCounter);
 			chartData.push({
 				type: 	"Negativo",
 				count: 	NegCounter,
@@ -99,7 +99,8 @@ function getFeatures(){
 
 	// Negativos...
 	map.featuresIn({ layer: 'clase 1' }, function(err, features) {
-		for (i in features){
+    console.log(features.length);
+    for (i in features){
 			Count(1);
 		}
 	});
