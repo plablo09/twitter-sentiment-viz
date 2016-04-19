@@ -4,15 +4,16 @@
     <meta charset='utf-8' />
     <title></title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.17.0/mapbox-gl.js'></script>
     <script src='assets/jquery-2.2.1.min.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.17.0/mapbox-gl.css' rel='stylesheet' />
     <link href='assets/styles.css' rel='stylesheet' />
     <!-- Scripts de amcharts -->
-      <script src="assets/amG/amchartsC.js"></script>
-      <script src="assets/amG/pie.js"></script>
-      <script src="assets/amG/light.js"></script>
-      <script src="assets/mapFunctions.js"></script>
+    <script src="assets/amG/amchartsC.js"></script>
+    <script src="assets/amG/pie.js"></script>
+    <script src="assets/amG/light.js"></script>
+    <!-- Funciones del mapa -->
+    <script src="assets/mapFunctions.js"></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -217,7 +218,7 @@ var locations = [{
 
 $(":radio[value=general]").prop('checked',true);
 map.on('load', function() {
-	  getFeatures();
+	getFeatures();
     myTimerFly = window.setTimeout(function(){playback(0,"10");},10000);
     $("input[name='place']").change(flyToLocation);
 });

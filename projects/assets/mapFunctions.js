@@ -18,7 +18,7 @@ function playback(index,maxIndex) {
                 $(":radio[value=general]").prop('checked',true)
                 $('input[name=place]').attr("disabled",false);
             }
-        }, 10000); // After callback, show the location for 10 seconds.
+        }, 5000); // After callback, show the location for 10 seconds.
     });
 }
 
@@ -44,42 +44,26 @@ function stopTravel(){
     });
 }
 
-function Count(type){
-
-	switch (type) {
-		case 1:
-		    NegCounter = NegCounter + 1;
-		    break;
-		case 2:
-		    NeuCounter = NeuCounter + 1;
-		    break;
-		case 3:
-		    PosCounter = PosCounter + 1;
-		    break;
-	}
-
-}
-
 function RefreshGraph(){
       //console.log(PosCounter);
-			chartData.push({
-				type: 	"Negativo",
-				count: 	NegCounter,
-				color:  "#C81316"
-			});
-			chartData.push({
-				type: 	"Neutro",
-				count: 	NeuCounter,
-				color:  "#238AA3"
-			});
+	chartData.push({
+		type: 	"Negativo",
+		count: 	NegCounter,
+		color:  "#C81316"
+	});
+	chartData.push({
+		type: 	"Neutro",
+		count: 	NeuCounter,
+		color:  "#238AA3"
+	});
 
-			chartData.push({
-				type: 	"Positivo",
-				count: 	PosCounter,
-				color:  "#98A243"
-			});
+	chartData.push({
+		type: 	"Positivo",
+		count: 	PosCounter,
+		color:  "#98A243"
+	});
 
-			chart.validateData();
+	chart.validateData();
 
 }
 
@@ -96,28 +80,11 @@ function ClearChart(){
 }
 
 function getFeatures(){
-
-	// Negativos...
-	map.featuresIn({ layer: 'clase 1' }, function(err, features) {
-    console.log(features.length);
-    for (i in features){
-			Count(1);
-		}
-	});
-
-	// Neutros...
-	map.featuresIn({ layer: 'clase 2' }, function(err, features) {
-		for (i in features){
-			Count(2);
-		}
-	});
-
-	// Positivos...
-	map.featuresIn({ layer: 'clase 3' }, function(err, features) {
-		for (i in features){
-			Count(3);
-		}
-		RefreshGraph();
-	});
-
+    f1 = map.queryRenderedFeatures({ layers: ['clase 1'] });
+    NegCounter = f1.length;
+    f2 = map.queryRenderedFeatures({ layers: ['clase 2'] });
+    NeuCounter = f2.length;
+    f3 = map.queryRenderedFeatures({ layers: ['clase 3'] });
+    PosCounter = f3.length;
+    RefreshGraph();
 }
