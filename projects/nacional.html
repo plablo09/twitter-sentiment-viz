@@ -8,6 +8,11 @@
     <script src='assets/jquery-2.2.1.min.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.15.0/mapbox-gl.css' rel='stylesheet' />
     <link href='assets/styles.css' rel='stylesheet' />
+    <!-- Scripts de amcharts -->
+      <script src="assets/amG/amchartsC.js"></script>
+      <script src="assets/amG/pie.js"></script>
+      <script src="assets/amG/light.js"></script>
+      <script src="assets/mapFunctions.js"></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -30,8 +35,8 @@
     <h1 id='title'>Viajero</h1>
     <form action="">
         <div>
-            <input type="radio" name="place" value="repmex" id="repmex">
-            <label for="repmex"><span></span>República Mexicana</label>
+            <input type="radio" name="place" value="general" id="general">
+            <label for="general"><span></span>República Mexicana</label>
         </div>
         <div>
             <input type="radio" name="place" value="Tijuana" id="Tijuana">
@@ -77,6 +82,13 @@
   </div>
 </div>
 
+<div id="chartdiv" style="font-weight: bold;"></div>
+<div class='map-overlay-container-l'>
+  <div class='map-overlay-l'>
+	<img src="Images/Logos/consorcio.png"></img>
+  </div>
+</div>
+
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoicGxhYmxvMDkiLCJhIjoiLVdaOHJ5cyJ9.J3n95xgPc2yjnm6QyLuMYQ';
 var map = new mapboxgl.Map({
@@ -88,6 +100,10 @@ var map = new mapboxgl.Map({
 
 var title = document.getElementById('location-title');
 var description = document.getElementById('location-description');
+var myTimerFly = null;
+var PosCounter = 0;
+var NegCounter = 0;
+var NeuCounter = 0;
 
 var locations = [{
     "id": "1",
@@ -190,7 +206,7 @@ var locations = [{
     }
 }, {
     "title": "República Mexicana",
-    "radioId": "repmex",
+    "radioId": "general",
     "camera": {
         center: [-100.35, 22.9],
         zoom: 4,
@@ -199,42 +215,33 @@ var locations = [{
     }
 }];
 
-function playback(index) {
-    $(":radio[value="+locations[index].radioId+"]").prop('checked',true)
-    // Animate the map position based on camera properties
-    map.flyTo(locations[index].camera);
-    map.once('moveend', function() {
-        // Duration the slide is on screen after interaction
-        window.setTimeout(function() {
-            // Increment index
-            index = (index + 1 === locations.length) ? 0 : index + 1;
-            if(index != "10"){
-                playback(index);
-            }else {
-                map.flyTo(locations[10].camera);
-                $(":radio[value=repmex]").prop('checked',true)
-                $('input[name=place]').attr("disabled",false);
-            }
-        }, 3000); // After callback, show the location for 3 seconds.
-    });
-}
-
-$(":radio[value=repmex]").prop('checked',true)
+$(":radio[value=general]").prop('checked',true);
 map.on('load', function() {
-    $('input[name=place]').attr("disabled",true);
-    playback(0);
+	  getFeatures();
+    myTimerFly = window.setTimeout(function(){playback(0,"10");},10000);
     $("input[name='place']").change(flyToLocation);
 });
-
-function flyToLocation(){
-    radioValue = $(this).val();
-    locations.forEach(function(item,index){
-        if(item["radioId"] == radioValue){
-            map.flyTo(locations[index].camera);
-        }
-    });
-}
-
+var chartData = [];
+// Cramos el control de graficación...
+var chart = AmCharts.makeChart( "chartdiv", {
+  "type": "pie",
+  "theme": "light",
+  "valueField": "count",
+  "titleField": "type",
+  "colorField": "color",
+  "labelText": "[[title]]<br>[[percents]]%",
+  "labelRadius": -5,
+  "radius": "50%",
+  "sequencedAnimation": true,
+   "balloon":{
+   "fixedPosition":true
+  },
+  "export": {
+  "enabled": false
+  }
+} );
+// Enlazamos los datos...
+chart.dataProvider = chartData;
 </script>
 
 </body>
