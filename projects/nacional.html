@@ -31,8 +31,8 @@
   </div>
 </div>
 
-<div class='map-navigation-conatainer'>
-  <div class='map-navigation'>
+<div class='map-navigation-conatainer-nat'>
+  <div class='map-navigation-nat'>
     <h1 id='title'>Viajero</h1>
     <form action="">
         <div>
@@ -48,20 +48,24 @@
             <label for="Hermosillo"><span></span>Hermosillo</label>
         </div>
         <div>
-            <input type="radio" name="place" value="Monterrey" id="Monterrey">
-            <label for="Monterrey"><span></span>Monterrey</label>
-        </div>
-        <div>
             <input type="radio" name="place" value="Torreon" id="Torreon">
             <label for="Torreon"><span></span>Torreón</label>
         </div>
         <div>
-            <input type="radio" name="place" value="Aguascalientes" id="Aguascalientes">
-            <label for="Aguascalientes"><span></span>Aguascalientes</label>
+            <input type="radio" name="place" value="Monterrey" id="Monterrey">
+            <label for="Monterrey"><span></span>Monterrey</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Tampico" id="Tampico">
+            <label for="Tampico"><span></span>Tampico</label>
         </div>
         <div>
             <input type="radio" name="place" value="SLP" id="SLP">
             <label for="SLP"><span></span>San Luis Potosí</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Aguascalientes" id="Aguascalientes">
+            <label for="Aguascalientes"><span></span>Aguascalientes</label>
         </div>
         <div>
             <input type="radio" name="place" value="Guadalajara" id="Guadalajara">
@@ -78,6 +82,34 @@
         <div>
             <input type="radio" name="place" value="CDMX" id="CDMX">
             <label for="CDMX"><span></span>Ciudad de México</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Puebla" id="Puebla">
+            <label for="Puebla"><span></span>Puebla</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Veracruz" id="Veracruz">
+            <label for="Veracruz"><span></span>Veracruz</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Oaxaca" id="Oaxaca">
+            <label for="Oaxaca"><span></span>Oaxaca</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Tuxtla" id="Tuxtla">
+            <label for="Tuxtla"><span></span>Tuxtla</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Villahermosa" id="Villahermosa">
+            <label for="Villahermosa"><span></span>Villahermosa</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Merida" id="Merida">
+            <label for="Merida"><span></span>Merida</label>
+        </div>
+        <div>
+            <input type="radio" name="place" value="Cancun" id="Cancun">
+            <label for="Cancun"><span></span>Cancun</label>
         </div>
     </form>
   </div>
@@ -111,9 +143,10 @@ var locations = [{
     "radioId": "Tijuana",
     "title": "Tijuana",
     "camera": {
-        center: [-116.92, 32.46],
-        zoom: 10.8,
-        pitch: 50
+        center: [-116.98, 32.53],
+        bearing: 10,
+        zoom: 12.4,
+        pitch: 70
     }
 }, {
     "id": "2",
@@ -121,91 +154,173 @@ var locations = [{
     "title": "Hermosillo",
     "camera": {
         center: [-110.98, 29.10],
-        bearing: -8.9,
-        zoom: 11.0,
-        pitch: 30
+        bearing: - 40,
+        zoom: 12.0,
+        pitch: 65
     }
 }, {
     "id": "3",
+    "radioId": "Torreon",
+    "title": "Torreon",
+    "camera": {
+        center: [-103.40, 25.54],
+        bearing: 25,
+        zoom: 12.0,
+        pitch: 90
+    }
+}, {
+    "id": "4",
     "radioId": "Monterrey",
     "title": "Monterrey",
     "camera": {
         center: [-100.24, 25.68],
-        bearing: -  14.2,
-        zoom: 10.0,
-        pitch: 26
+        bearing: -  60,
+        zoom: 12.0,
+        pitch: 70
     }
 }, {
-    "id": "4",
-    "radioId": "Torreon",
-    "title": "Torreón",
-    "camera": {
-        center: [-103.44, 25.55],
-        bearing:  14.2,
-        zoom: 11.1,
-        pitch: 50
-    }
-}, {
-    "id": "5",
-    "radioId": "Aguascalientes",
-    "title": "Aguascalientes",
-    "camera": {
-        center: [-102.29, 21.88],
-        bearing:  - 14.2,
-        zoom: 11.1,
-        pitch: 50
-    }
-}, {
+        "id": "5",
+        "radioId": "Tampico",
+        "title": "Tampico",
+        "camera": {
+            center: [-97.81, 22.26],
+            bearing: 70,
+            zoom: 12.1,
+            pitch: 85
+        }
+},  {
     "id": "6",
     "radioId": "SLP",
     "title": "San Luis Potosí",
     "camera": {
         center: [-100.95, 22.15],
         bearing:  - 19.2,
-        zoom: 11.8,
-        pitch: 37
+        zoom: 12.2,
+        pitch: 80
     }
 }, {
     "id": "7",
+    "radioId": "Aguascalientes",
+    "title": "Aguascalientes",
+    "camera": {
+        center: [-102.29, 21.88],
+        bearing:  - 20,
+        zoom: 12.1,
+        pitch: 70
+    }
+}, {
+    "id": "8",
     "radioId": "Guadalajara",
     "title": "Guadalajara",
     "camera": {
         center: [-103.36, 20.66],
-        bearing:  12.2,
-        zoom: 12.4,
-        pitch: 50
+        bearing:  - 75.2,
+        zoom: 11.4,
+        pitch: 60
     }
 }, {
-    "id": "8",
+    "id": "9",
     "radioId": "Leon",
     "title": "León",
     "camera": {
-        center: [-101.68, 21.12],
+        center: [-101.65, 21.12],
         bearing:  - 15.2,
         zoom: 12.0,
         pitch: 35
     }
 }, {
-    "id": "9",
+    "id": "10",
     "radioId": "Queretaro",
     "title": "Querétaro",
     "camera": {
-        center: [-100.40, 20.59],
-        bearing:  - 120,
+        center: [-100.43, 20.59],
+        bearing:  -120,
         zoom: 11.6,
-        pitch: 20
+        pitch: 40
     }
 }, {
-    "id": "10",
+    "id": "11",
     "radioId": "CDMX",
     "title": "Ciudad de México",
     "camera": {
         center: [-99.13, 19.42],
-        bearing:  - 45,
-        zoom: 11.6,
-        pitch: 12
+        bearing:  1,
+        zoom: 11,
+        pitch: 95
     }
 }, {
+    "id": "12",
+    "radioId": "Puebla",
+    "title": "Puebla",
+    "camera": {
+        center: [-98.19, 19.04],
+        bearing:  - 45,
+        zoom: 12.5,
+        pitch: 55
+    }
+}, {
+    "id": "13",
+    "radioId": "Veracruz",
+    "title": "Veracruz",
+    "camera": {
+        center: [-96.14, 19.18],
+        bearing:  - 95,
+        zoom: 12.6,
+        pitch: 75
+    }
+}, {
+    "id": "14",
+    "radioId": "Oaxaca",
+    "title": "Oaxaca",
+    "camera": {
+        center: [-96.72, 17.06],
+        bearing:  14,
+        zoom: 12.6,
+        pitch: 62
+    }
+}, {
+    "id": "15",
+    "radioId": "Tuxtla",
+    "title": "Tuxtla",
+    "camera": {
+        center: [-93.11, 16.75],
+        bearing: 45,
+        zoom: 12.3,
+        pitch: 60
+    }
+},  {
+    "id": "16",
+    "radioId": "Villahermosa",
+    "title": "Villahermosa",
+    "camera": {
+        center: [-92.95, 17.96],
+        bearing:  60,
+        zoom: 13.3,
+        pitch: 65
+    }
+},  {
+    "id": "17",
+    "radioId": "Merida",
+    "title": "Merida",
+    "camera": {
+        center: [-89.62, 20.96],
+        bearing:  - 15,
+        zoom: 11.6,
+        pitch: 80
+    }
+}, {
+    "id": "18",
+    "radioId": "Cancun",
+    "title": "Cancun",
+    "camera": {
+        center: [-86.80, 21.16],
+        bearing:  40,
+        zoom: 12.6,
+        pitch: 80
+    }
+},
+
+{
     "title": "República Mexicana",
     "radioId": "general",
     "camera": {
@@ -219,7 +334,7 @@ var locations = [{
 $(":radio[value=general]").prop('checked',true);
 map.on('load', function() {
 	getFeatures();
-    myTimerFly = window.setTimeout(function(){playback(0,"10");},10000);
+    myTimerFly = window.setTimeout(function(){playback(0,"18");},10000);
     $("input[name='place']").change(flyToLocation);
 });
 var chartData = [];
